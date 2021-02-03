@@ -1,0 +1,7 @@
+geometry_msgs/Point[] point2d
+---
+geometry_msgs/Point[] point3d
+uint8 SUCCEEDED=0
+uint8 FAILED=1
+uint8 result_status
+

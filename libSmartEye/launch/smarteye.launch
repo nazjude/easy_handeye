@@ -1,0 +1,34 @@
+<launch>
+
+    <!-- Comment this if using wall time (should not be changed) -->
+    <param name="/use_sim_time" value="true" />
+
+    <!-- Obtain this transform with hand-eye calibration (do not change the name mz25_link0 and camera_link) x += 8mm, y += 0mm--><!--cal1.24-->
+    <!-- 1.11188 0.244319 2.36722  0.702656391559678 0.711364410833154 0.0120828226280440 0.00940487378636822 cal1.18
+    1.11104 0.245844 2.36753  0.702478348163489 0.711554671125136 0.0113807945174403 0.00921398631201875 cal1.24 -->
+    <node pkg="tf2_ros" type="static_transform_publisher" name="base_to_camera"
+
+
+        args="1.11104 0.245844 2.36753  0.702478348163489 0.711554671125136 0.0113807945174403 0.00921398631201875 mz25_link0 camera_link" />
+        <!-- args="1.11297 0.247599 2.36722  0.702656391559678 0.711364410833154 0.0120828226280440 0.00940487378636822 mz25_link0 camera_link" />-->
+         <!-- args="1.10413 0.232749 2.37045 0.7026099908626477 0.7113780940347815 0.01454865555887395 0.008291241695956884 mz25_link0 camera_link" /> --><!--origin transformation matrix-->
+
+    <arg name="ns" default="hv1000"/>
+    <!-- Note: do not add leading / to camera_link   -->
+    <arg name="camera_frame" default="camera_link"/>
+    <arg name="cloud_topic" default="/point_cloud"/>
+    <arg name="image_topic" default="/camera_rect/image_raw"/>
+    <arg name="camera_info_topic" default="/camera_rect/camera_info"/>
+
+    <node ns="$(arg ns)" name="smarteye_node" pkg="smarteye" type="smarteye_node" respawn="false">
+        <param name="camera_frame" value="$(arg camera_frame)" />
+        <param name="pub_pointcloud_msg_id" value="$(arg cloud_topic)" />
+        <param name="get_pointcloud_srv_id" value="get_pointcloud" />
+        <param name="pub_image_msg_id" value="$(arg image_topic)" />
+        <param name="pub_camera_info_msg_id" value="$(arg camera_info_topic)" />
+        <!-- The minimum and maximum depth the camera could perceive (wrt camera_link z-axis) -->
+        <param name="min_depth" value="1.18" />
+        <param name="max_depth" value="1.38" />
+    </node>
+
+</launch>
