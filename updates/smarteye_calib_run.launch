@@ -1,0 +1,16 @@
+<launch>
+    <arg name="ip" doc="The ID of the ArUco marker used" default="192.168.1.50"/>
+    
+    <!-- start ur5 -->
+    <include file="$(find ur_robot_driver)/launch/ur5_bringup.launch" >
+        <arg name="robot_ip" value="$(arg ip)" />
+    </include>
+
+    <include file="$(find timed_roslaunch)/launch/timed_roslaunch.launch">
+        <arg name="time" value="5" />
+        <arg name="pkg" value="easy_handeye" />
+        <arg name="file" value="smarteye_calibration.launch" />       
+        <arg name="node_name" value="timed_roslaunch" /> <!-- This is optional argument -->
+    </include>
+
+</launch>
