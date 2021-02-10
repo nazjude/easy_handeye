@@ -14,3 +14,6 @@
 [submodule "timed_roslaunch"]
 	path = timed_roslaunch
 	url = https://github.com/MoriKen254/timed_roslaunch.git
+[submodule "vision_visp"]
+	path = vision_visp
+	url = https://github.com/lagadic/vision_visp.git
